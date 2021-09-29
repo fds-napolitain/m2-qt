@@ -362,7 +362,7 @@ qrc_shaders.cpp: shaders.qrc \
 
 qrc_textures.cpp: textures.qrc \
 		/usr/lib/qt5/bin/rcc \
-		cube.png
+		snowrocks.png
 	/usr/lib/qt5/bin/rcc -name textures textures.qrc -o qrc_textures.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h

@@ -55,6 +55,8 @@
 #include <QVector2D>
 #include <QVector3D>
 
+#include <time.h>
+
 struct VertexData
 {
     QVector3D position;
@@ -136,9 +138,10 @@ void GeometryEngine::initCubeGeometry()
     int y = 16;
     float interval_x = 2/(float)(x-1);
     float interval_y = 2/(float)(y-1);
+    srand(time(NULL));
     for (int j = 0; j < y; ++j) {
         for (int i = 0; i < x; ++i) {
-            vertices[j*y+i] = {QVector3D(-1.0f+i*interval_x, -1.0f+j*interval_y,  0.0f), QVector2D(interval_x*i, interval_y*j)};
+            vertices[j*y+i] = {QVector3D(-1.0f+i*interval_x, -1.0f+j*interval_y, (rand() % 5 + 1)/5.0f), QVector2D(interval_x*i, interval_y*j)};
         }
     }
 

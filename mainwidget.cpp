@@ -133,7 +133,7 @@ void MainWidget::initializeGL()
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // LINE : debug FILL : normal
     // Enable back face culling
-    //glEnable(GL_CULL_FACE);
+    //tglEnable(GL_CULL_FACE);
 //! [2]
 
     geometries = new GeometryEngine;
@@ -220,4 +220,31 @@ void MainWidget::paintGL()
 
     // Draw cube geometry
     geometries->drawCubeGeometry(&program);
+}
+
+void MainWidget::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+        case Qt::Key_Z: /* haut */
+            projection.translate(0.0, 1.0, 0.0);
+            break;
+        case Qt::Key_Q: /* gauche */;
+            projection.translate(-1.0, 0.0, 0.0);
+            break;
+        case Qt::Key_D: /*droite */
+            projection.translate(1.0, 0.0, 0.0);
+          break;
+        case Qt::Key_S: /* bas */
+            projection.translate(0.0, -1.0, 0.0);
+            break;
+        case Qt::Key_A: /* descendre */
+            projection.translate(0.0, 0.0, 1.0);
+            break;
+        case Qt::Key_E: /* monter */
+            projection.translate(0.0, 0.0, -1.0);
+            break;
+
+
+    }
+    update();
 }

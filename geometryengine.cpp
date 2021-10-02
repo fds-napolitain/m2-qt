@@ -92,48 +92,7 @@ void GeometryEngine::initCubeGeometry()
     // is different.
     // Hence 4 vertices per face and 6 faces vertices = 24 vertices
     unsigned int vertexNumber = 256 ;
-    VertexData vertices[vertexNumber]; // = {
-        // Vertex data for face 0
-
- //       {QVector3D(-1.0f, -1.0f,  1.0f), QVector2D(0.0f, 0.0f)},  // v0
-   //     {QVector3D( 1.0f, -1.0f,  1.0f), QVector2D(0.33f, 0.0f)}, // v1
-     //   {QVector3D(-1.0f,  1.0f,  1.0f), QVector2D(0.0f, 0.5f)},  // v2
-       // {QVector3D( 1.0f,  1.0f,  1.0f), QVector2D(0.33f, 0.5f)}, // v3
-
-
-
-        /*
-        // Vertex data for face 1
-        {QVector3D( 1.0f, -1.0f,  1.0f), QVector2D( 0.0f, 0.5f)}, // v4
-        {QVector3D( 1.0f, -1.0f, -1.0f), QVector2D(0.33f, 0.5f)}, // v5
-        {QVector3D( 1.0f,  1.0f,  1.0f), QVector2D(0.0f, 1.0f)},  // v6
-        {QVector3D( 1.0f,  1.0f, -1.0f), QVector2D(0.33f, 1.0f)}, // v7
-
-        // Vertex data for face 2
-        {QVector3D( 1.0f, -1.0f, -1.0f), QVector2D(0.66f, 0.5f)}, // v8
-        {QVector3D(-1.0f, -1.0f, -1.0f), QVector2D(1.0f, 0.5f)},  // v9
-        {QVector3D( 1.0f,  1.0f, -1.0f), QVector2D(0.66f, 1.0f)}, // v10
-        {QVector3D(-1.0f,  1.0f, -1.0f), QVector2D(1.0f, 1.0f)},  // v11
-
-        // Vertex data for face 3
-        {QVector3D(-1.0f, -1.0f, -1.0f), QVector2D(0.66f, 0.0f)}, // v12
-        {QVector3D(-1.0f, -1.0f,  1.0f), QVector2D(1.0f, 0.0f)},  // v13
-        {QVector3D(-1.0f,  1.0f, -1.0f), QVector2D(0.66f, 0.5f)}, // v14
-        {QVector3D(-1.0f,  1.0f,  1.0f), QVector2D(1.0f, 0.5f)},  // v15
-
-        // Vertex data for face 4
-        {QVector3D(-1.0f, -1.0f, -1.0f), QVector2D(0.33f, 0.0f)}, // v16
-        {QVector3D( 1.0f, -1.0f, -1.0f), QVector2D(0.66f, 0.0f)}, // v17
-        {QVector3D(-1.0f, -1.0f,  1.0f), QVector2D(0.33f, 0.5f)}, // v18
-        {QVector3D( 1.0f, -1.0f,  1.0f), QVector2D(0.66f, 0.5f)}, // v19
-
-        // Vertex data for face 5
-        {QVector3D(-1.0f,  1.0f,  1.0f), QVector2D(0.33f, 0.5f)}, // v20
-        {QVector3D( 1.0f,  1.0f,  1.0f), QVector2D(0.66f, 0.5f)}, // v21
-        {QVector3D(-1.0f,  1.0f, -1.0f), QVector2D(0.33f, 1.0f)}, // v22
-        {QVector3D( 1.0f,  1.0f, -1.0f), QVector2D(0.66f, 1.0f)}  // v23
-        */
-    //};
+    VertexData vertices[vertexNumber];
     int x = 16;
     int y = 16;
     float interval_x = 2/(float)(x-1);
@@ -141,7 +100,8 @@ void GeometryEngine::initCubeGeometry()
     srand(time(NULL));
     for (int j = 0; j < y; ++j) {
         for (int i = 0; i < x; ++i) {
-            vertices[j*y+i] = {QVector3D(-1.0f+i*interval_x, -1.0f+j*interval_y, (rand() % 5 + 1)/5.0f), QVector2D(interval_x*i, interval_y*j)};
+            //vertices[j*y+i] = {QVector3D(-1.0f+i*interval_x, -1.0f+j*interval_y, (rand() % 5 + 1)/5.0f), QVector2D(interval_x*i, interval_y*j)};
+            vertices[j*y+i] = {QVector3D(-1.0f+i*interval_x, -1.0f+j*interval_y, 0.0f), QVector2D(interval_x*i, interval_y*j)};
         }
     }
 
@@ -163,8 +123,8 @@ void GeometryEngine::initCubeGeometry()
             indices[tmp++] = j*y+i;
             indices[tmp++] = (j+1)*y+i;
         }
-        indices[tmp++]=(j+1)*y+y-1;
-        indices[tmp++]=(j+1)*y;
+        indices[tmp++] = (j+1)*y+y-1;
+        indices[tmp++] = (j+1)*y;
     }
 
 //! [1]

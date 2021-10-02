@@ -68,6 +68,7 @@ MainWidget::~MainWidget()
     // and the buffers.
     makeCurrent();
     delete texture;
+    delete heightmap;
     delete geometries;
     doneCurrent();
 }
@@ -168,6 +169,7 @@ void MainWidget::initTextures()
 {
     // Load cube.png image
     texture = new QOpenGLTexture(QImage(":/snowrocks.png").mirrored());
+    heightmap = new QOpenGLTexture(QImage(":/heightmap-1024x1024.png").mirrored());
 
     // Set nearest filtering mode for texture minification
     texture->setMinificationFilter(QOpenGLTexture::Nearest);
@@ -178,6 +180,7 @@ void MainWidget::initTextures()
     // Wrap texture coordinates by repeating
     // f.ex. texture coordinate (1.1, 1.2) is same as (0.1, 0.2)
     texture->setWrapMode(QOpenGLTexture::Repeat);
+    heightmap->setWrapMode(QOpenGLTexture::Repeat);
 }
 //! [4]
 
@@ -203,7 +206,8 @@ void MainWidget::paintGL()
     // Clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    texture->bind();
+    texture->bind(1);
+    heightmap->bind(0);
 
 //! [6]
     // Calculate model view transformation
@@ -217,6 +221,7 @@ void MainWidget::paintGL()
 
     // Use texture unit 0 which contains cube.png
     program.setUniformValue("texture", 0);
+    program.setUniformValue("heightmap", 1);
 
     // Draw cube geometry
     geometries->drawCubeGeometry(&program);
@@ -225,22 +230,22 @@ void MainWidget::paintGL()
 void MainWidget::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
-        case Qt::Key_Z: /* haut */
+        case Qt::Key_Z: /* y + 1 */
             projection.translate(0.0, 1.0, 0.0);
             break;
-        case Qt::Key_Q: /* gauche */;
+        case Qt::Key_Q: /* x - 1 */;
             projection.translate(-1.0, 0.0, 0.0);
             break;
-        case Qt::Key_D: /*droite */
+        case Qt::Key_D: /* x + 1 */
             projection.translate(1.0, 0.0, 0.0);
           break;
-        case Qt::Key_S: /* bas */
+        case Qt::Key_S: /* y - 1 */
             projection.translate(0.0, -1.0, 0.0);
             break;
-        case Qt::Key_A: /* descendre */
+        case Qt::Key_A: /* z + 1 */
             projection.translate(0.0, 0.0, 1.0);
             break;
-        case Qt::Key_E: /* monter */
+        case Qt::Key_E: /* z - 1 */
             projection.translate(0.0, 0.0, -1.0);
             break;
 

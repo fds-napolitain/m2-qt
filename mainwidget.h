@@ -91,6 +91,8 @@ private:
     GeometryEngine *geometries;
 
     QOpenGLTexture *texture;
+    QOpenGLTexture *heightmap;
+
 
     QMatrix4x4 projection;
 

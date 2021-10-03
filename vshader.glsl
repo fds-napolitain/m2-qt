@@ -6,16 +6,17 @@ in vec4 a_position;
 in vec2 a_texcoord;
 
 out vec2 v_texcoord;
+out vec3 v_position;
 uniform sampler2D heightmap;
 
 
 //! [0]
 void main()
 {
-    float height = texture2D(heightmap, a_texcoord).p;
+    float height = texture2D(heightmap, a_texcoord).p; // valeur pixel: hauteur ici
 
     // Calculate vertex position in screen space
-    gl_Position = mvp_matrix * (a_position.x, a.position.y + heightmap, a.position.z, 1.0);
+    gl_Position = mvp_matrix * vec4(a_position.x, a_position.y, a_position.z + height, 1.0f);
 
     // Pass texture coordinate to fragment shader
     // Value will be automatically interpolated to fragments inside polygon faces

@@ -91,6 +91,8 @@ private:
     GeometryEngine *geometries;
 
     QOpenGLTexture *texture;
+    QOpenGLTexture *rocks;
+    QOpenGLTexture *snowrocks;
     QOpenGLTexture *heightmap;
 
 

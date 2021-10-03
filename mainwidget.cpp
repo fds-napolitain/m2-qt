@@ -68,6 +68,8 @@ MainWidget::~MainWidget()
     // and the buffers.
     makeCurrent();
     delete texture;
+    delete rocks;
+    delete snowrocks;
     delete heightmap;
     delete geometries;
     doneCurrent();
@@ -168,18 +170,26 @@ void MainWidget::initShaders()
 void MainWidget::initTextures()
 {
     // Load cube.png image
-    texture = new QOpenGLTexture(QImage(":/snowrocks.png").mirrored());
+    texture = new QOpenGLTexture(QImage(":/grass.png").mirrored());
+    rocks = new QOpenGLTexture(QImage(":/rock.png").mirrored());
+    snowrocks = new QOpenGLTexture(QImage(":/snowrocks.png").mirrored());
     heightmap = new QOpenGLTexture(QImage(":/heightmap-1024x1024.png").mirrored());
 
     // Set nearest filtering mode for texture minification
     texture->setMinificationFilter(QOpenGLTexture::Nearest);
+    rocks->setMinificationFilter(QOpenGLTexture::Nearest);
+    snowrocks->setMinificationFilter(QOpenGLTexture::Nearest);
 
     // Set bilinear filtering mode for texture magnification
     texture->setMagnificationFilter(QOpenGLTexture::Linear);
+    rocks->setMagnificationFilter(QOpenGLTexture::Linear);
+    snowrocks->setMagnificationFilter(QOpenGLTexture::Linear);
 
     // Wrap texture coordinates by repeating
     // f.ex. texture coordinate (1.1, 1.2) is same as (0.1, 0.2)
     texture->setWrapMode(QOpenGLTexture::Repeat);
+    rocks->setWrapMode(QOpenGLTexture::Repeat);
+    snowrocks->setWrapMode(QOpenGLTexture::Repeat);
     heightmap->setWrapMode(QOpenGLTexture::Repeat);
 }
 //! [4]
@@ -206,8 +216,8 @@ void MainWidget::paintGL()
     // Clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    texture->bind(1);
     heightmap->bind(0);
+    texture->bind(1);
 
 //! [6]
     // Calculate model view transformation
@@ -220,8 +230,8 @@ void MainWidget::paintGL()
 //! [6]
 
     // Use texture unit 0 which contains cube.png
-    program.setUniformValue("texture", 0);
-    program.setUniformValue("heightmap", 1);
+    program.setUniformValue("heightmap", 0);
+    program.setUniformValue("texture", 1);
 
     // Draw cube geometry
     geometries->drawCubeGeometry(&program);

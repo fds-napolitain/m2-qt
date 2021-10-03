@@ -91,10 +91,10 @@ void GeometryEngine::initCubeGeometry()
     // duplicate vertex for each face because texture coordinate
     // is different.
     // Hence 4 vertices per face and 6 faces vertices = 24 vertices
-    unsigned int vertexNumber = 256 ;
+    unsigned int x = 32;
+    int y = 32;
+    unsigned int vertexNumber = x*y ;
     VertexData vertices[vertexNumber];
-    int x = 16;
-    int y = 16;
     float interval_x = 2/(float)(x-1);
     float interval_y = 2/(float)(y-1);
     srand(time(NULL));

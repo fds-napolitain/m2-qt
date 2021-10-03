@@ -179,11 +179,13 @@ void MainWidget::initTextures()
     texture->setMinificationFilter(QOpenGLTexture::Nearest);
     rocks->setMinificationFilter(QOpenGLTexture::Nearest);
     snowrocks->setMinificationFilter(QOpenGLTexture::Nearest);
+    heightmap->setMinificationFilter(QOpenGLTexture::Nearest);
 
     // Set bilinear filtering mode for texture magnification
     texture->setMagnificationFilter(QOpenGLTexture::Linear);
     rocks->setMagnificationFilter(QOpenGLTexture::Linear);
     snowrocks->setMagnificationFilter(QOpenGLTexture::Linear);
+    heightmap->setMagnificationFilter(QOpenGLTexture::Linear);
 
     // Wrap texture coordinates by repeating
     // f.ex. texture coordinate (1.1, 1.2) is same as (0.1, 0.2)

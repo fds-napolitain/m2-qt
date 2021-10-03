@@ -91,8 +91,8 @@ void GeometryEngine::initCubeGeometry()
     // duplicate vertex for each face because texture coordinate
     // is different.
     // Hence 4 vertices per face and 6 faces vertices = 24 vertices
-    unsigned int x = 32;
-    int y = 32;
+    int x = 16;
+    int y = 16;
     unsigned int vertexNumber = x*y ;
     VertexData vertices[vertexNumber];
     float interval_x = 2/(float)(x-1);
@@ -162,6 +162,6 @@ void GeometryEngine::drawCubeGeometry(QOpenGLShaderProgram *program)
     program->setAttributeBuffer(texcoordLocation, GL_FLOAT, offset, 2, sizeof(VertexData));
 
     // Draw cube geometry using indices from VBO 1
-    glDrawElements(GL_TRIANGLE_STRIP, indexBuf.size(), GL_UNSIGNED_SHORT, 0); //Careful update indicesNumber when creating new geometry
+    glDrawElements(GL_TRIANGLE_STRIP, indexBuf.size()/2, GL_UNSIGNED_SHORT, 0); //Careful update indicesNumber when creating new geometry
 }
 //! [2]

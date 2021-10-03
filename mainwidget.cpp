@@ -136,7 +136,7 @@ void MainWidget::initializeGL()
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // LINE : debug FILL : normal
     // Enable back face culling
-    //tglEnable(GL_CULL_FACE);
+    //glEnable(GL_CULL_FACE);
 //! [2]
 
     geometries = new GeometryEngine;
@@ -218,6 +218,8 @@ void MainWidget::paintGL()
 
     heightmap->bind(0);
     texture->bind(1);
+    rocks->bind(2);
+    snowrocks->bind(3);
 
 //! [6]
     // Calculate model view transformation
@@ -232,6 +234,9 @@ void MainWidget::paintGL()
     // Use texture unit 0 which contains cube.png
     program.setUniformValue("heightmap", 0);
     program.setUniformValue("texture", 1);
+    program.setUniformValue("rocks", 2);
+    program.setUniformValue("snowrocks", 3);
+
 
     // Draw cube geometry
     geometries->drawCubeGeometry(&program);
